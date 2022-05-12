@@ -195,10 +195,11 @@ def main(username, password):
     print('正在为您打卡')
     try:
         res = dk.post()
-        if str(res['e']) == '0':
-            print('打卡成功！')
-        else:
+        while str(res['e']) != '0':
             print('打卡失败.', res['m'])
+            dk.get_info()
+            res = dk.post()
+        print("打卡成功")
     except Exception:
         print('数据提交失败')
         raise Exception
