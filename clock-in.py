@@ -195,13 +195,15 @@ def main(username, password):
     print('正在为您打卡')
     try:
         res = dk.post()
-        while str(res['e']) != '0':
-            print('打卡失败.', res['m'])
-            dk.get_info()
-            res = dk.post()
-            if(res['m'] == "今天已经填报了"):
-                break
-        print("打卡成功")
+        if str(res['e']) == '0':
+            print("打卡成功")
+        else:
+            while str(res['e']) != '0':
+                print('打卡失败.', res['m'])
+                dk.get_info()
+                res = dk.post()
+                if(res['m'] != "验证码错误"):
+                    break
     except Exception:
         print('数据提交失败')
         raise Exception
