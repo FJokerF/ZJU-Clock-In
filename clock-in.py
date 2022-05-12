@@ -199,6 +199,8 @@ def main(username, password):
             print('打卡失败.', res['m'])
             dk.get_info()
             res = dk.post()
+            if(res['m'] == "今天已经填报了"):
+                break
         print("打卡成功")
     except Exception:
         print('数据提交失败')
